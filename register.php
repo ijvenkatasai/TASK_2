@@ -33,18 +33,21 @@ if (isset($_POST["submit"])) {
     } elseif ($_POST["password"] != $_POST["confirmpassword"]) {
         echo "Password and confirm password should be same!!!<br>";
     } else {
-        $conn=mysqli_connect($db_server,$db_user,$db_pass,$db_name);
-        echo "Registered successfully!!!<br>";
+        try{
+             $conn=mysqli_connect($db_server,$db_user,$db_pass,$db_name);
+    
         $username = mysqli_real_escape_string($conn, $_POST["username"]);
         $password = $_POST["password"];
         $pass = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO users (username, password) VALUES ('$username', '$pass')";
 
-        mysqli_query($conn,$sql); 
+        mysqli_query($conn,$sql);
+        echo "Registered successfully!!!<br>"; 
         header("refresh:2; url=loginpage.php");
-                    
-        
+        }catch(mysqli_sql_exception){
+            echo " Username is Already taken!!!";
+        }
     }
 }
 ?>
