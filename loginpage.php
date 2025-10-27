@@ -12,7 +12,7 @@ session_start();
     body {
       background-color: #2c2c2c;
       color: #e0e0e0;
-      font-family: 'Segoe UI', sans-serif;
+   
       margin: 0;
       padding: 0;
     }
@@ -139,6 +139,7 @@ if (isset($_POST["login"])) {
             if (password_verify($pass, $row["password"])) {
                 echo '<div class="message">Login successful!!!!!!!</div>';
                 $_SESSION["username"] = $user;
+                $_SESSION["role"] = "user";
                 header("refresh:2; url=myblog.php");
             } else {
                 echo '<div class="error">Incorrect Password!!!</div>';
@@ -149,3 +150,4 @@ if (isset($_POST["login"])) {
     }
 }
 ?>
+
